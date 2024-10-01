@@ -8,9 +8,11 @@ function App() {
   
   return (
     <>
+      <div className='text-white'>
       <ContextProvider>
         <RouterProvider router={router}/>
       </ContextProvider>
+      </div>
     </>
   )
 }

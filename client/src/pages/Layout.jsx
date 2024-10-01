@@ -6,6 +6,7 @@ import Footer from "../components/Footer/Footer";
 function Layout() {
   return (
     <>
+      <div className=" flex flex-col justify-between items-center min-h-[100vh]">
       <Navbar />
       <div className="w-full">
         <div className="container mx-auto">
@@ -13,6 +14,7 @@ function Layout() {
         </div>
       </div>
       <Footer />
+      </div>
     </>
   );
 }
