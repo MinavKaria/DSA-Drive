@@ -49,8 +49,10 @@ const resolver={
                     title:args.title,
                     description:args.description,
                     tags:args.tags,
-                    code:args.code
+                    code:args.code,
+                    addedBy:args.addedBy
                 });
+                console.log(question);
                 await question.save();
                 return question;
             }

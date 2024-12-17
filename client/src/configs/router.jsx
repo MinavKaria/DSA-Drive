@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Landing from "../pages/Landing";
 import Layout from "../pages/Layout";
 import QuestionForm from "../pages/QuestionForm";
+import QuestionPage from "../pages/QuestionPage";
 
 const router=createBrowserRouter([
     {
@@ -15,7 +16,12 @@ const router=createBrowserRouter([
             {
                 path:'/question',
                 element:<QuestionForm/>
+            },
+            {
+                path:'/question/:id',
+                element:<QuestionPage/>
             }
+
         ]
     },
     {

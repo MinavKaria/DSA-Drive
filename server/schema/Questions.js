@@ -5,8 +5,9 @@ const QuestionSchema = new mongoose.Schema({
   description: { type: String },
   tags: [{ type: String }],
   difficulty: { type: String, enum: ['Easy', 'Medium', 'Hard'], default: 'Medium' },
-    code: { type: String },
-    dateSolved: { type: Date, default: Date.now },
+  code: { type: String },
+  dateSolved: { type: Date, default: Date.now },
+  addedBy: { type: String },
 });
 
 const Question = mongoose.model('Question', QuestionSchema);
