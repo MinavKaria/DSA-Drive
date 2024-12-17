@@ -7,11 +7,14 @@ const typeDefs = `
     tags: [String]
     code: String
     dateSolved: String
+    difficulty: String
+
   }
 
   type Query {
     getQuestions: [Question]
     getQuestion(id: ID!): Question
+    getQuestionsByTag(tag: [String!]): [Question]
   }
 
   type Mutation {
