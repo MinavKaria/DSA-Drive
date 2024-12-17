@@ -50,7 +50,8 @@ const resolver={
                     description:args.description,
                     tags:args.tags,
                     code:args.code,
-                    addedBy:args.addedBy
+                    addedBy:args.addedBy,
+                    difficulty:args.difficulty
                 });
                 console.log(question);
                 await question.save();

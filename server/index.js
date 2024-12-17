@@ -7,6 +7,7 @@ import resolvers from './configs/resolvers.js';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { expressMiddleware } from '@apollo/server/express4';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
 async function startServer()
 {
@@ -16,9 +17,11 @@ async function startServer()
         resolvers
     });
 
+    dotenv.config();
+
     try
     {
-        await mongoose.connect('mongodb://localhost:27017/DSA-Drive');
+        await mongoose.connect(process.env.MONGO_URL);
         console.log('Connected to MongoDB');
     }
     catch(err)
@@ -30,6 +33,7 @@ async function startServer()
     
     app.use(cors());
     app.use(bodyParser.json());
+  
 
     app.use('/graphql', expressMiddleware(server));
 

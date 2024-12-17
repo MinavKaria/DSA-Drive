@@ -44,7 +44,7 @@ function Landing() {
       <div className='flex justify-center items-center h-full flex-col relative '>
         <h1 className=' text-3xl font-bold'>Welcome to DSA Drive</h1>
         {loading ? <Skeleton count={5} /> : <div className='flex flex-wrap justify-center items-center'>
-        <div className='flex mt-5'>
+        <div className='flex mt-5 overflow-hidden max-w-screen flex-wrap'>
         {UniqueTagsArray.map((tag, index) => {
                   return (
                     <SelectableButton key={index} tag={tag} selected={selectedTags.includes(tag)} selectedTags={selectedTags} addTag={addTag} removeTag={removeTag} />

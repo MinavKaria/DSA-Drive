@@ -1,29 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import  MonacoEditor  from '@monaco-editor/react';
 import { gql, useMutation } from '@apollo/client';
-
+import { useNavigate } from 'react-router-dom';
 const SEND_DATA = gql`
-mutation AddQuestion($title: String!, $description: String!, $tags: [String], $code: String, $addedBy: String) {
-  addQuestion(title: $title, description: $description, tags: $tags, code: $code, addedBy: $addedBy) {
+mutation AddQuestion($title: String!, $description: String!, $tags: [String], $code: String, $addedBy: String, $difficulty: String) {
+  addQuestion(title: $title, description: $description, tags: $tags, code: $code, addedBy: $addedBy, difficulty: $difficulty) {
     _id
   }
 }
 `;
 
 function QuestionForm() {
+
+
+  const navigate  = useNavigate();
   const [data, setData] = useState({
     title: '',
     description: '',
     tags: [],
     code: '',
-    addedBy:''
+    addedBy:'',
+    difficulty:''
     });
 
     const [addQuestion, { data2, loading, error }] = useMutation(SEND_DATA);
 
     const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
 
     const questionData = {
@@ -31,13 +35,14 @@ function QuestionForm() {
       description:data.description,
       tags: data.tags.split(',').map(tag => tag.trim()),
       code:data.code,
-      addedBy:data.addedBy
+      addedBy:data.addedBy,
+      difficulty:data.difficulty
     };
 
     if(password === import.meta.env.VITE_PASSWORD) 
     {
       console.log('Password is correct');
-      addQuestion({ variables: questionData });
+      const data3=addQuestion({ variables: questionData });
       setData({
         title: '',
         description: '',
@@ -45,6 +50,14 @@ function QuestionForm() {
         code: '',
         addedBy:''
       });
+      setPassword('');
+      data3.then(response => {
+        console.log(response);
+        navigate(`/question/${response.data.addQuestion._id}`);
+      }).catch(error => {
+        console.error("Error adding question:", error);
+      });
+      // navigate(`/question/${data3.addQuestion._id}`);
     }
     else
     {
@@ -53,6 +66,10 @@ function QuestionForm() {
 
     console.log('Form data:', questionData);
   };
+
+
+
+
 
 
  
@@ -103,7 +120,7 @@ function QuestionForm() {
         </div>
 
         <div>
-          <label className="block text-black">Tags (comma separated)</label>
+          <label className="block ">Tags (comma separated)</label>
           <input
             type="text"
             value={data.tags}
@@ -111,6 +128,20 @@ function QuestionForm() {
             className="w-full mt-2 p-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             placeholder="Enter tags (e.g. Array, Dynamic Programming)"
           />
+        </div>
+
+        <div>
+          <label className="block ">Difficulty</label>
+          <select
+            value={data.difficulty}
+            onChange={(e) => setData({ ...data, difficulty: e.target.value })}
+            className="w-full mt-2 p-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            <option value="">Select Difficulty</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
         </div>
 
         <div>

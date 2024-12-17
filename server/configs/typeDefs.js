@@ -19,7 +19,7 @@ const typeDefs = `
   }
 
   type Mutation {
-    addQuestion(title: String!, description: String!, tags: [String], code: String,addedBy: String): Question
+    addQuestion(title: String!, description: String!, tags: [String], code: String,addedBy: String, difficulty:String): Question
   }
 `;
 

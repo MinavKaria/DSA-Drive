@@ -15,6 +15,7 @@ const GET_DATA = gql`
       title
       dateSolved
       code
+      addedBy
     }
   }
 `;
@@ -28,7 +29,7 @@ function QuestionPage() {
   if (loading) return <div className="text-center mt-10">Loading...</div>;
   if (error) return <div className="text-center mt-10">Error! {error.message}</div>;
 
-  const { title, description, difficulty, tags, dateSolved, code } = data.getQuestion;
+  const { title, description, difficulty, tags, dateSolved, code, addedBy } = data.getQuestion;
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-md">
@@ -45,6 +46,9 @@ function QuestionPage() {
         </span>
         <span className="px-3 py-1 bg-green-200 text-green-800 rounded-full">
           Date Solved: {dateSolved ? new Date(parseInt(dateSolved)).toDateString() : 'N/A'}
+        </span>
+        <span className="px-3 py-1 bg-yellow-200 text-yellow-800 rounded-full">
+          Added By: {addedBy || 'N/A'}
         </span>
       </div>
 
