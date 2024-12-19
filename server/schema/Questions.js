@@ -8,6 +8,7 @@ const QuestionSchema = new mongoose.Schema({
   code: { type: String },
   dateSolved: { type: Date, default: Date.now },
   addedBy: { type: String },
+  link: { type: String },
 });
 
 const Question = mongoose.model('Question', QuestionSchema);

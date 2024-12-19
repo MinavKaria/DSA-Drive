@@ -45,13 +45,15 @@ const resolver={
     Mutation:{
         addQuestion:async (_,args)=>{
             try{
+              //  console.log(args)
                 const question=new Question({
                     title:args.title,
                     description:args.description,
                     tags:args.tags,
                     code:args.code,
                     addedBy:args.addedBy,
-                    difficulty:args.difficulty
+                    difficulty:args.difficulty,
+                    link:args.link
                 });
                 console.log(question);
                 await question.save();

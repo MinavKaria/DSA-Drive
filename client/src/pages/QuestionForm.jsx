@@ -3,8 +3,8 @@ import  MonacoEditor  from '@monaco-editor/react';
 import { gql, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 const SEND_DATA = gql`
-mutation AddQuestion($title: String!, $description: String!, $tags: [String], $code: String, $addedBy: String, $difficulty: String) {
-  addQuestion(title: $title, description: $description, tags: $tags, code: $code, addedBy: $addedBy, difficulty: $difficulty) {
+mutation Mutation($title: String!, $description: String!, $tags: [String], $code: String, $addedBy: String, $difficulty: String, $link: String) {
+  addQuestion(title: $title, description: $description, tags: $tags, code: $code, addedBy: $addedBy, difficulty: $difficulty, link: $link) {
     _id
   }
 }
@@ -20,7 +20,8 @@ function QuestionForm() {
     tags: [],
     code: '',
     addedBy:'',
-    difficulty:''
+    difficulty:'',
+    link:''
     });
 
     const [addQuestion, { data2, loading, error }] = useMutation(SEND_DATA);
@@ -36,8 +37,11 @@ function QuestionForm() {
       tags: data.tags.split(',').map(tag => tag.trim()),
       code:data.code,
       addedBy:data.addedBy,
-      difficulty:data.difficulty
+      difficulty:data.difficulty,
+      link:data.link
     };
+
+    console.log(questionData);
 
     if(password === import.meta.env.VITE_PASSWORD) 
     {
@@ -48,7 +52,8 @@ function QuestionForm() {
         description: '',
         tags: [],
         code: '',
-        addedBy:''
+        addedBy:'',
+        link:'',
       });
       setPassword('');
       data3.then(response => {
@@ -103,6 +108,17 @@ function QuestionForm() {
             className="w-full mt-2 p-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             placeholder="Enter question title"
             required
+          />
+        </div>
+
+        <div>
+          <label className="block ">Link</label>
+          <input
+            type="text"
+            value={data.link}
+            onChange={(e) => setData({ ...data, link: e.target.value })}
+            className="w-full mt-2 p-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="Enter link to the question"
           />
         </div>
 

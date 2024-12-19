@@ -8,7 +8,8 @@ const typeDefs = `
     code: String
     dateSolved: String
     difficulty: String
-    addedBy: String
+    addedBy: String,
+    link: String
 
   }
 
@@ -19,7 +20,7 @@ const typeDefs = `
   }
 
   type Mutation {
-    addQuestion(title: String!, description: String!, tags: [String], code: String,addedBy: String, difficulty:String): Question
+    addQuestion(title: String!, description: String!, tags: [String], code: String,addedBy: String, difficulty:String, link:String): Question
   }
 `;
 

@@ -16,6 +16,7 @@ const GET_DATA = gql`
       dateSolved
       code
       addedBy
+      link
     }
   }
 `;
@@ -29,7 +30,7 @@ function QuestionPage() {
   if (loading) return <div className="text-center mt-10">Loading...</div>;
   if (error) return <div className="text-center mt-10">Error! {error.message}</div>;
 
-  const { title, description, difficulty, tags, dateSolved, code, addedBy } = data.getQuestion;
+  const { title, description, difficulty, tags, dateSolved, code, addedBy, link } = data.getQuestion;
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-md">
@@ -40,6 +41,18 @@ function QuestionPage() {
         <p className="text-gray-700">{description}</p>
       </div>
 
+
+      <div className='mb-4'>
+        {link ? (
+          <>
+          <a className=" text-blue-400 hover:underline " href={`${link}`}>Link to the problem</a>
+          </>
+        ):(
+          <p className='text-blue-400'>Link N/A</p>
+        )}
+      </div>
+      
+
       <div className="flex flex-wrap gap-2 mb-4">
         <span className="px-3 py-1 bg-blue-200 text-blue-800 rounded-full">
           Difficulty: {difficulty || 'N/A'}
@@ -49,8 +62,11 @@ function QuestionPage() {
         </span>
         <span className="px-3 py-1 bg-yellow-200 text-yellow-800 rounded-full">
           Added By: {addedBy || 'N/A'}
+          
         </span>
       </div>
+
+      
 
       <div className="mb-4">
         <p className="text-lg font-semibold text-black">Tags:</p>
