@@ -8,7 +8,7 @@ function App() {
   
   return (
     <>
-      <div className='text-white fira-code-100'>
+      <div className='text-white fira-code-100 '>
       <ContextProvider>
         <RouterProvider router={router}/>
       </ContextProvider>
