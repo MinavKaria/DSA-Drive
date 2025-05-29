@@ -1,4 +1,3 @@
-import React from 'react'
 import { useQuery, gql } from '@apollo/client';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -20,24 +19,22 @@ function Landing() {
   const { selectedTags, addTag, removeTag } = useGlobalContext()
 
   
-  console.log(data)
+  // console.log(data)
 
-  
-
-  
   if (error) return <p>Error : {error.message}</p>;
 
   const UniqueTags=new Set();
 
   if(data){
-    data.getQuestions.map((question, index) => {
-      question.tags.map((tag, index) => {
+    data.getQuestions.map((question) => {
+      question.tags.map((tag) => {
         UniqueTags.add(tag)
       })
     })
   }
 
   const UniqueTagsArray=Array.from(UniqueTags)
+  
 
   return (
     <>

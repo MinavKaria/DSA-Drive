@@ -28,7 +28,7 @@ const resolver={
               if(tag.length === 0) 
               {
                 const questions = await Question.find();
-                return questions;
+                return questions.reverse();
               }
               const questions = await Question.find({
                 tags: { $in: tag } 
